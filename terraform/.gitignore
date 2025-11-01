@@ -13,11 +13,7 @@ terraform.tfstate.d/
 crash.log
 crash.*.log
 
-# Sensitive variable files (usually contain secrets)
-*.tfvars
-*.tfvars.json
-terraform.tfvars
-terraform.tfvars.json
+
 
 # Local override files
 override.tf

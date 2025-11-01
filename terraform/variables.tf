@@ -27,3 +27,15 @@ variable "gateway_vm_name" {
   type        = string
   description = "The name for the OpsRamp Gateway VM."
 }
+
+# NEW: The name of the VPC network to deploy into.
+variable "vpc_network_name" {
+  type        = string
+  description = "The name of the VPC network to use (e.g., 'default' or 'my-custom-vpc')."
+}
+
+# NEW: List of ports for the firewall rule.
+variable "gateway_firewall_ports" {
+  type        = list(string)
+  description = "The list of TCP ports to open for the gateway."
+}
