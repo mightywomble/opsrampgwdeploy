@@ -3,6 +3,41 @@
 
 This repository contains Terraform code to automatically deploy an HPE OpsRamp Gateway on the Google Cloud Platform (GCP).
 
+> Before you begin: configure Terraform remote state (GCS backend)
+>
+> Terraform stores its state in a Google Cloud Storage (GCS) bucket. The backend in `terraform/backend.tf` points to that bucket but does not create it. Do this once per project/environment:
+>
+> 1. Choose a globally unique bucket name for state, e.g. `opsramp-tfstate-<project>-<env>`.
+> 2. Create the bucket (any region is fine; use one close to you):
+>
+>    Bash
+>
+>    ```
+>    gcloud storage buckets create gs://<STATE_BUCKET> \
+>      --project <PROJECT_ID> \
+>      --location <REGION> \
+>      --uniform-bucket-level-access
+>    ```
+>
+>    (Alternative) Using gsutil:
+>
+>    ```
+>    gsutil mb -b on -l <REGION> gs://<STATE_BUCKET>
+>    ```
+>
+> 3. Edit `terraform/backend.tf` and set:
+>
+>    ```
+>    bucket = "<STATE_BUCKET>"
+>    # keep: prefix = "opsramp/gateway"
+>    ```
+>
+> 4. From the `terraform/` directory, initialize or reconfigure the backend:
+>
+>    ```
+>    terraform init -reconfigure
+>    ```
+>
 It automates the entire process of:
 
 1.  Creating a GCS bucket.
